@@ -138,13 +138,13 @@
             { "name": "laurent Perier Rosé", "badge": "MAGNUM", "bottle": "160.00" },
             { "name": "Ruinart Blanc de Blancs", "badge": "PREMIUM", "bottle": "170.00" },
             { "name": "Ruinart Blanc de Blancs 1.5", "badge": "MAGNUM", "bottle": "340.00" },
-            { "name": "Dom Pérignon Luminous", "badge": "LUXURY", "bottle": "350.00", "vip": true },
-            { "name": "Dom Pérignon Luminous 1.5", "badge": "LUXURY", "bottle": "770.00", "vip": true },
-            { "name": "Dom Pérignon Rosé Luminous", "badge": "EXCLUSIVE", "bottle": "620.00", "vip": true },
-            { "name": "Armand de Brignac Ace of Spades", "badge": "EXCLUSIVE", "bottle": "590.00", "vip": true },
-            { "name": "Armand de Brignac Ace of Spades Rosé", "badge": "EXCLUSIVE", "bottle": "790.00", "vip": true },
-            { "name": "Armand de Brignac Ace of Spades 1.5L", "desc": "op bestelling", "badge": "EXCLUSIVE", "bottle": "1440.00", "vip": true },
-            { "name": "Armand De Brignac Ace of Spades 3L", "desc": "op bestelling / prijs op aanvraag", "badge": "EXCLUSIVE", "vip": true }
+            { "name": "Dom Pérignon Luminous", "badge": "LUXURY", "bottle": "350.00" },
+            { "name": "Dom Pérignon Luminous 1.5", "badge": "LUXURY", "bottle": "770.00" },
+            { "name": "Dom Pérignon Rosé Luminous", "badge": "EXCLUSIVE", "bottle": "620.00" },
+            { "name": "Armand de Brignac Ace of Spades", "badge": "EXCLUSIVE", "bottle": "590.00" },
+            { "name": "Armand de Brignac Ace of Spades Rosé", "badge": "EXCLUSIVE", "bottle": "790.00" },
+            { "name": "Armand de Brignac Ace of Spades 1.5L", "desc": "op bestelling", "badge": "EXCLUSIVE", "bottle": "1440.00" },
+            { "name": "Armand De Brignac Ace of Spades 3L", "desc": "op bestelling / prijs op aanvraag", "badge": "EXCLUSIVE" }
           ]
         }
       ]
@@ -211,7 +211,7 @@
         { "name": "Grey Goose 3L", "bottle": "585.00" },
         { "name": "Grey Goose 4.5L", "bottle": "1085.00" },
         { "name": "Grey Goose 6L", "bottle": "1550.00" },
-        { "name": "Crystal Head", "bottle": "170.00", "premium": true },
+        { "name": "Crystal Head", "bottle": "170.00" },
         { "name": "Crystal Head 1.5L", "bottle": "450.00" },
         { "name": "Crystal Head 3L", "bottle": "680.00" }
       ]

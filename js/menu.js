@@ -55,6 +55,38 @@ function filterItems(items) {
 
 function renderSimpleItem(item) {
     const desc = item.desc ? `<p class="text-muted text-sm mt-1">${escapeHtml(item.desc)}</p>` : '';
+    const popular = popularBadgeHtml(item);
+    
+    // Handle prices with " / " separator (e.g., draft beer sizes)
+    if (item.price && item.price.includes(' / ')) {
+        const prices = item.price.split(' / ').map(p => p.trim());
+        if (prices.length === 2) {
+            let priceHtml = '<div class="glass-bottle-container">';
+            priceHtml += `
+                <div class="glass-bottle-item">
+                    <div class="text-muted text-xs mb-1">SMALL</div>
+                    <div class="price text-lg">&euro;${prices[0]}</div>
+                </div>
+                <div class="glass-bottle-item">
+                    <div class="text-muted text-xs mb-1">LARGE</div>
+                    <div class="price text-lg">&euro;${prices[1]}</div>
+                </div>`;
+            priceHtml += '</div>';
+            
+            return `
+                <div class="menu-card p-6 rounded-2xl reveal-card">
+                    <div class="flex flex-col">
+                        <div class="flex items-center gap-2 flex-wrap mb-3">
+                            <h3 class="font-semibold text-xl">${escapeHtml(item.name)}</h3>
+                            ${popular}
+                        </div>
+                        ${desc}
+                    </div>
+                    ${priceHtml}
+                </div>`;
+        }
+    }
+    
     const priceParts = [];
     if (item.price) priceParts.push(`&euro;${item.price}`);
     if (item.bottle) priceParts.push(`Bottle: &euro;${item.bottle}`);
@@ -66,7 +98,7 @@ function renderSimpleItem(item) {
                 <div>
                     <div class="flex items-center gap-2 flex-wrap">
                         <h3 class="font-semibold text-xl">${escapeHtml(item.name)}</h3>
-                        ${popularBadgeHtml(item)}
+                        ${popular}
                     </div>
                     ${desc}
                 </div>
@@ -79,11 +111,17 @@ function renderGlassBottleItem(item) {
     const desc = item.desc ? `<p class="text-muted text-sm">${escapeHtml(item.desc)}</p>` : '';
     const badge = item.badge ? `<span class="wine-type-badge text-xs font-semibold px-3 py-1.5 rounded-full">${escapeHtml(item.badge)}</span>` : '';
     const premiumBadge = item.premium ? '<div class="premium-badge">PREMIUM</div>' : '';
+    const vipRibbon = item.vip ? '<div class="vip-ribbon">VIP</div>' : '';
+    const extraClasses = item.vip ? ' relative overflow-hidden' : '';
     const popular = popularBadgeHtml(item);
 
-    if (!item.glass && item.bottle) {
+    // Handle items with only price field (e.g., shots)
+    if (item.price && !item.glass && !item.bottle) {
+        const priceParts = [item.price];
+        const priceDisplay = priceParts.map(p => `&euro;${p}`).join(' / ');
         return `
-            <div class="spirit-card menu-card p-6 rounded-2xl reveal-card">
+            <div class="spirit-card menu-card p-6 rounded-2xl${extraClasses} reveal-card">
+                ${vipRibbon}
                 <div class="flex items-start justify-between mb-4">
                     <div class="flex-1">
                         ${badge}
@@ -94,8 +132,47 @@ function renderGlassBottleItem(item) {
                         ${desc}
                         ${premiumBadge}
                     </div>
-                    <div class="price text-xl">&euro;${item.bottle}</div>
+                    <div class="price text-xl">${priceDisplay}</div>
                 </div>
+            </div>`;
+    }
+
+    // Handle items with price and bottle (e.g., shots with bottle option)
+    if (item.price && item.bottle && !item.glass) {
+        let priceHtml = '<div class="glass-bottle-container">';
+        priceHtml += `
+            <div class="glass-bottle-item">
+                <div class="text-muted text-xs mb-1">SHOT</div>
+                <div class="price text-lg">&euro;${item.price}</div>
+            </div>
+            <div class="glass-bottle-item">
+                <div class="text-muted text-xs mb-1">BOTTLE</div>
+                <div class="price text-lg">&euro;${item.bottle}</div>
+            </div>`;
+        priceHtml += '</div>';
+        
+        return `
+            <div class="spirit-card menu-card p-6 rounded-2xl${extraClasses} reveal-card">
+                ${vipRibbon}
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        ${badge}
+                        <div class="flex items-center gap-2 flex-wrap ${badge ? 'mt-3' : ''}">
+                            <h3 class="font-semibold text-xl mb-1">${escapeHtml(item.name)}</h3>
+                            ${popular}
+                        </div>
+                        ${desc}
+                        ${premiumBadge}
+                    </div>
+                </div>
+                ${priceHtml}
+            </div>`;
+    }
+
+    if (!item.glass && item.bottle) {
+        return `
+            <div class="spirit-card menu-card p-6 rounded-2xl${extraClasses} reveal-card">
+                ${vipRibbon}
             </div>`;
     }
 
@@ -153,8 +230,37 @@ function renderGlassBottleItem(item) {
 
 function renderCocktailItem(item) {
     const desc = item.desc ? `<p class="text-muted text-sm mt-1">${escapeHtml(item.desc)}</p>` : '';
+    const popular = popularBadgeHtml(item);
+
+    // If item has both price and virgin, show them in separate boxes
+    if (item.price && item.virgin) {
+        let priceHtml = '<div class="glass-bottle-container">';
+        priceHtml += `
+            <div class="glass-bottle-item">
+                <div class="text-muted text-xs mb-1">COCKTAIL</div>
+                <div class="price text-lg">&euro;${item.price}</div>
+            </div>
+            <div class="glass-bottle-item">
+                <div class="text-muted text-xs mb-1">MOCKTAIL</div>
+                <div class="price text-lg">&euro;${item.virgin}</div>
+            </div>`;
+        priceHtml += '</div>';
+
+        return `
+            <div class="cocktail-card menu-card p-6 rounded-2xl reveal-card">
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-2 flex-wrap mb-3">
+                        <h3 class="font-semibold text-xl">${escapeHtml(item.name)}</h3>
+                        ${popular}
+                    </div>
+                    ${desc}
+                </div>
+                ${priceHtml}
+            </div>`;
+    }
+
+    // Default: single price
     let priceText = `&euro;${item.price}`;
-    if (item.virgin) priceText += ` / &euro;${item.virgin}`;
 
     return `
         <div class="cocktail-card menu-card p-6 rounded-2xl reveal-card">
@@ -162,10 +268,9 @@ function renderCocktailItem(item) {
                 <div>
                     <div class="flex items-center gap-2 flex-wrap">
                         <h3 class="font-semibold text-xl">${escapeHtml(item.name)}</h3>
-                        ${popularBadgeHtml(item)}
+                        ${popular}
                     </div>
                     ${desc}
-                    ${item.virgin ? '<p class="text-muted text-xs mt-1">(V) = Virgin/Mocktail available</p>' : ''}
                 </div>
                 <span class="price text-xl whitespace-nowrap ml-4">${priceText}</span>
             </div>
