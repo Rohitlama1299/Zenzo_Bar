@@ -177,98 +177,107 @@
       ]
     },
     {
-      "id": "spirits",
-      "title": "Spirits",
+      "id": "rum",
+      "title": "Rum",
       "icon": "fa-cocktail",
-      "type": "spirits",
-      "note": "All spirits include soft drinks. Energy drinks + €0.50 per glass / €5.00 per bottle",
-      "subcategories": [
-        {
-          "title": "Rum",
-          "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
-          "items": [
-            { "name": "Bacardi Carta Blanca", "glass": "12.00", "bottle": "120.00" },
-            { "name": "Bacardi Carta Blanca 3L", "bottle": "470.00" },
-            { "name": "Bacardi Razz", "bottle": "120.00" },
-            { "name": "Bacardi Spiced", "glass": "12.00", "bottle": "120.00" },
-            { "name": "Bacardi Dark", "glass": "12.50", "bottle": "125.00" },
-            { "name": "Bacardi Reserva", "glass": "13.00", "bottle": "130.00" },
-            { "name": "Don Papa", "glass": "14.50", "bottle": "160.00" },
-            { "name": "Zacapa 23", "glass": "16.50", "bottle": "180.00", "premium": true }
-          ]
-        },
-        {
-          "title": "Vodka Special",
-          "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
-          "items": [
-            { "name": "Eristoff White / Red / Pink", "glass": "12.00", "bottle": "120.00" },
-            { "name": "Belvedere", "bottle": "150.00" },
-            { "name": "Belvedere 1.5L", "bottle": "295.00" },
-            { "name": "Belvedere 3L", "bottle": "595.00" },
-            { "name": "Grey Goose", "glass": "14.00", "bottle": "140.00", "premium": true, "popular": true },
-            { "name": "Grey Goose L'Orange", "bottle": "145.00" },
-            { "name": "Grey Goose Altius", "bottle": "295.00" },
-            { "name": "Grey Goose 1.5L", "bottle": "275.00" },
-            { "name": "Grey Goose 3L", "bottle": "585.00" },
-            { "name": "Grey Goose 4.5L", "bottle": "1085.00" },
-            { "name": "Grey Goose 6L", "bottle": "1550.00" },
-            { "name": "Crystal Head", "bottle": "170.00", "premium": true },
-            { "name": "Crystal Head 1.5L", "bottle": "450.00" },
-            { "name": "Crystal Head 3L", "bottle": "680.00" }
-          ]
-        },
-        {
-          "title": "Gin Exclusive",
-          "note": "Incl. London Essence / Pomelo & pink /Grapefruit & Rosemary",
-          "items": [
-            { "name": "Bombay Sapphire", "glass": "12.50", "bottle": "125.00" },
-            { "name": "Roku Japanese Gin", "glass": "15.50", "premium": true },
-            { "name": "Monkey 47", "glass": "15.50", "bottle": "150.00", "premium": true },
-            { "name": "Gin Mare", "glass": "15.50", "bottle": "150.00", "premium": true },
-            { "name": "Hendricks", "glass": "15.50", "bottle": "150.00", "premium": true, "popular": true },
-            { "name": "Filliers", "glass": "15.50", "bottle": "150.00", "premium": true },
-            { "name": "Gin NON-alcoholic gin", "glass": "12.50" }
-          ]
-        },
-        {
-          "title": "Tequila",
-          "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
-          "items": [
-            { "name": "Pistoleros", "glass": "12.00", "bottle": "110.00" },
-            { "name": "Patrón Silver", "glass": "16.00", "bottle": "160.00", "premium": true }
-          ]
-        },
-        {
-          "title": "Others",
-          "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
-          "items": [
-            { "name": "Malibu", "glass": "12.50", "bottle": "120.00" },
-            { "name": "Passoa", "glass": "12.50", "bottle": "120.00" },
-            { "name": "Safari", "glass": "12.50", "bottle": "120.00" },
-            { "name": "Baileys", "glass": "12.50", "bottle": "120.00" },
-            { "name": "Cointreau", "glass": "12.50", "bottle": "120.00" },
-            { "name": "Amaretto", "glass": "12.50", "bottle": "120.00" },
-            { "name": "Blue Bols", "glass": "12.50", "bottle": "120.00" }
-          ]
-        },
-        {
-          "title": "Additional Spirits",
-          "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
-          "items": [
-            { "name": "Jameson", "glass": "13.50", "bottle": "135.00" },
-            { "name": "Belgian Owl 5 Ans", "glass": "15.00", "bottle": "150.00" },
-            { "name": "William Lawson's", "glass": "12.00", "bottle": "120.00" },
-            { "name": "Johnnie Walker Black", "glass": "14.50", "bottle": "145.00" },
-            { "name": "Jack Daniels", "glass": "12.50", "bottle": "130.00", "popular": true },
-            { "name": "Jack Daniels Honey / Appel", "glass": "13.00", "bottle": "135.00" },
-            { "name": "Cognac Hennessy", "glass": "13.00", "bottle": "140.00" },
-            { "name": "Cognac", "glass": "12.00", "bottle": "120.00" },
-            { "name": "Chivas Regal", "glass": "14.50", "bottle": "145.00" },
-            { "name": "Dewar's Caribbean", "glass": "12.50", "bottle": "125.00" },
-            { "name": "Dewar's 12 Years", "glass": "17.00", "bottle": "170.00" },
-            { "name": "Glen Morey 18 Years", "glass": "19.00", "bottle": "210.00", "premium": true }
-          ]
-        }
+      "type": "simple",
+      "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
+      "items": [
+        { "name": "Bacardi Carta Blanca", "glass": "12.00", "bottle": "120.00" },
+        { "name": "Bacardi Carta Blanca 3L", "bottle": "470.00" },
+        { "name": "Bacardi Razz", "bottle": "120.00" },
+        { "name": "Bacardi Spiced", "glass": "12.00", "bottle": "120.00" },
+        { "name": "Bacardi Dark", "glass": "12.50", "bottle": "125.00" },
+        { "name": "Bacardi Reserva", "glass": "13.00", "bottle": "130.00" },
+        { "name": "Don Papa", "glass": "14.50", "bottle": "160.00" },
+        { "name": "Zacapa 23", "glass": "16.50", "bottle": "180.00", "premium": true }
+      ]
+    },
+    {
+      "id": "vodka",
+      "title": "Vodka Special",
+      "icon": "fa-cocktail",
+      "type": "simple",
+      "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
+      "items": [
+        { "name": "Eristoff White / Red / Pink", "glass": "12.00", "bottle": "120.00" },
+        { "name": "Belvedere", "bottle": "150.00" },
+        { "name": "Belvedere 1.5L", "bottle": "295.00" },
+        { "name": "Belvedere 3L", "bottle": "595.00" },
+        { "name": "Grey Goose", "glass": "14.00", "bottle": "140.00", "premium": true, "popular": true },
+        { "name": "Grey Goose L'Orange", "bottle": "145.00" },
+        { "name": "Grey Goose Altius", "bottle": "295.00" },
+        { "name": "Grey Goose 1.5L", "bottle": "275.00" },
+        { "name": "Grey Goose 3L", "bottle": "585.00" },
+        { "name": "Grey Goose 4.5L", "bottle": "1085.00" },
+        { "name": "Grey Goose 6L", "bottle": "1550.00" },
+        { "name": "Crystal Head", "bottle": "170.00", "premium": true },
+        { "name": "Crystal Head 1.5L", "bottle": "450.00" },
+        { "name": "Crystal Head 3L", "bottle": "680.00" }
+      ]
+    },
+    {
+      "id": "gin",
+      "title": "Gin Exclusive",
+      "icon": "fa-cocktail",
+      "type": "simple",
+      "note": "Incl. London Essence / Pomelo & pink /Grapefruit & Rosemary",
+      "items": [
+        { "name": "Bombay Sapphire", "glass": "12.50", "bottle": "125.00" },
+        { "name": "Roku Japanese Gin", "glass": "15.50", "premium": true },
+        { "name": "Monkey 47", "glass": "15.50", "bottle": "150.00", "premium": true },
+        { "name": "Gin Mare", "glass": "15.50", "bottle": "150.00", "premium": true },
+        { "name": "Hendricks", "glass": "15.50", "bottle": "150.00", "premium": true, "popular": true },
+        { "name": "Filliers", "glass": "15.50", "bottle": "150.00", "premium": true },
+        { "name": "Gin NON-alcoholic gin", "glass": "12.50" }
+      ]
+    },
+    {
+      "id": "whiskey",
+      "title": "Whiskey",
+      "icon": "fa-cocktail",
+      "type": "simple",
+      "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
+      "items": [
+        { "name": "Jameson", "glass": "13.50", "bottle": "135.00" },
+        { "name": "Belgian Owl 5 Ans", "glass": "15.00", "bottle": "150.00" },
+        { "name": "William Lawson's", "glass": "12.00", "bottle": "120.00" },
+        { "name": "Johnnie Walker Black", "glass": "14.50", "bottle": "145.00" },
+        { "name": "Jack Daniels", "glass": "12.50", "bottle": "130.00", "popular": true },
+        { "name": "Jack Daniels Honey / Appel", "glass": "13.00", "bottle": "135.00" },
+        { "name": "Cognac Hennessy", "glass": "13.00", "bottle": "140.00" },
+        { "name": "Cognac", "glass": "12.00", "bottle": "120.00" },
+        { "name": "Chivas Regal", "glass": "14.50", "bottle": "145.00" },
+        { "name": "Dewar's Caribbean", "glass": "12.50", "bottle": "125.00" },
+        { "name": "Dewar's 12 Years", "glass": "17.00", "bottle": "170.00" },
+        { "name": "Glen Morey 18 Years", "glass": "19.00", "bottle": "210.00", "premium": true }
+      ]
+    },
+    {
+      "id": "others",
+      "title": "Others",
+      "icon": "fa-cocktail",
+      "type": "simple",
+      "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
+      "items": [
+        { "name": "Malibu", "glass": "12.50", "bottle": "120.00" },
+        { "name": "Passoa", "glass": "12.50", "bottle": "120.00" },
+        { "name": "Safari", "glass": "12.50", "bottle": "120.00" },
+        { "name": "Baileys", "glass": "12.50", "bottle": "120.00" },
+        { "name": "Cointreau", "glass": "12.50", "bottle": "120.00" },
+        { "name": "Amaretto", "glass": "12.50", "bottle": "120.00" },
+        { "name": "Blue Bols", "glass": "12.50", "bottle": "120.00" }
+      ]
+    },
+    {
+      "id": "tequila",
+      "title": "Tequila",
+      "icon": "fa-cocktail",
+      "type": "simple",
+      "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
+      "items": [
+        { "name": "Pistoleros", "glass": "12.00", "bottle": "110.00" },
+        { "name": "Patrón Silver", "glass": "16.00", "bottle": "160.00", "premium": true }
       ]
     },
     {
@@ -308,6 +317,32 @@
         { "name": "Ruinart \"Blanc de Blancs\" (10 bottles)", "price": "1450.00" },
         { "name": "Dom Pérignon Luminous (5 Bottles)", "price": "1600.00" },
         { "name": "Dom Pérignon Luminous (10 Bottles)", "price": "3100.00" }
+      ]
+    },
+    {
+      "id": "cocktails",
+      "title": "Cocktails / Mocktails",
+      "icon": "fa-martini-glass-citrus",
+      "type": "cocktails",
+      "items": [
+        { "name": "Mojito", "desc": "Rum/Lime/Sugar/Mint", "price": "13.00", "virgin": "9.00", "popular": true },
+        { "name": "Mojito Royal", "desc": "Rum/Lime/Sugar/Mint/Cava", "price": "14.00" },
+        { "name": "Mojito Strawberry", "desc": "Mojito + Strawberries", "price": "14.00", "virgin": "10.00" },
+        { "name": "Caipirinha", "desc": "Cachaca/Lime/Sugar", "price": "13.00" },
+        { "name": "Cuba Libre", "desc": "Rum/Lime/Pepsi Cola", "price": "13.00" },
+        { "name": "Sex on the Beach", "desc": "Vodka/Peach/Cranberry/Orange", "price": "13.00" },
+        { "name": "Negroni", "desc": "Vermouth/Campari/Gin", "price": "13.00" },
+        { "name": "Whiskey Sour", "desc": "Whiskey/Lime/Lemon Juice/Sugar", "price": "14.00" },
+        { "name": "Pina Colada", "desc": "Rum/Pineapple juice/Coconut cream", "price": "13.00", "virgin": "10.00" },
+        { "name": "Pornstar Martini", "desc": "Vodka/Passoa/Passion fruit/Lime/Sugar", "price": "14.00", "popular": true },
+        { "name": "Espresso Martini", "desc": "Vodka/Koffie liqueur/Espresso/Sugar", "price": "14.00", "popular": true },
+        { "name": "Gin Fizz", "desc": "Gin/Lime/Sugar/Lemon", "price": "13.00" },
+        { "name": "Moscow Mule", "desc": "Vodka/Lime/Sugar/Ginger beer", "price": "14.00", "popular": true },
+        { "name": "Dark & Stormy", "desc": "Rum/Lime/Ginger beer", "price": "13.00" },
+        { "name": "Long Island Ice Tea", "desc": "Rum/Vodka/Triple Sec/Tequila/Gin/Lime/Cola", "price": "15.00", "popular": true },
+        { "name": "Zombie", "desc": "Rum/Lime/Grapefruit juice", "price": "14.00" },
+        { "name": "Jack Daniels Appel", "desc": "Jack Appel/Tonic/Lemon", "price": "13.00" },
+        { "name": "Bols blue Curacao", "desc": "Bols Curacao/Tequila/Lime/Sugar", "price": "14.00" }
       ]
     },
     {
@@ -381,32 +416,6 @@
             "20 soft drinks"
           ]
         }
-      ]
-    },
-    {
-      "id": "cocktails",
-      "title": "Cocktails / Mocktails",
-      "icon": "fa-martini-glass-citrus",
-      "type": "cocktails",
-      "items": [
-        { "name": "Mojito", "desc": "Rum/Lime/Sugar/Mint", "price": "13.00", "virgin": "9.00", "popular": true },
-        { "name": "Mojito Royal", "desc": "Rum/Lime/Sugar/Mint/Cava", "price": "14.00" },
-        { "name": "Mojito Strawberry", "desc": "Mojito + Strawberries", "price": "14.00", "virgin": "10.00" },
-        { "name": "Caipirinha", "desc": "Cachaca/Lime/Sugar", "price": "13.00" },
-        { "name": "Cuba Libre", "desc": "Rum/Lime/Pepsi Cola", "price": "13.00" },
-        { "name": "Sex on the Beach", "desc": "Vodka/Peach/Cranberry/Orange", "price": "13.00" },
-        { "name": "Negroni", "desc": "Vermouth/Campari/Gin", "price": "13.00" },
-        { "name": "Whiskey Sour", "desc": "Whiskey/Lime/Lemon Juice/Sugar", "price": "14.00" },
-        { "name": "Pina Colada", "desc": "Rum/Pineapple juice/Coconut cream", "price": "13.00", "virgin": "10.00" },
-        { "name": "Pornstar Martini", "desc": "Vodka/Passoa/Passion fruit/Lime/Sugar", "price": "14.00", "popular": true },
-        { "name": "Espresso Martini", "desc": "Vodka/Koffie liqueur/Espresso/Sugar", "price": "14.00", "popular": true },
-        { "name": "Gin Fizz", "desc": "Gin/Lime/Sugar/Lemon", "price": "13.00" },
-        { "name": "Moscow Mule", "desc": "Vodka/Lime/Sugar/Ginger beer", "price": "14.00", "popular": true },
-        { "name": "Dark & Stormy", "desc": "Rum/Lime/Ginger beer", "price": "13.00" },
-        { "name": "Long Island Ice Tea", "desc": "Rum/Vodka/Triple Sec/Tequila/Gin/Lime/Cola", "price": "15.00", "popular": true },
-        { "name": "Zombie", "desc": "Rum/Lime/Grapefruit juice", "price": "14.00" },
-        { "name": "Jack Daniels Appel", "desc": "Jack Appel/Tonic/Lemon", "price": "13.00" },
-        { "name": "Bols blue Curacao", "desc": "Bols Curacao/Tequila/Lime/Sugar", "price": "14.00" }
       ]
     }
   ]

@@ -79,14 +79,11 @@ function renderGlassBottleItem(item) {
     const desc = item.desc ? `<p class="text-muted text-sm">${escapeHtml(item.desc)}</p>` : '';
     const badge = item.badge ? `<span class="wine-type-badge text-xs font-semibold px-3 py-1.5 rounded-full">${escapeHtml(item.badge)}</span>` : '';
     const premiumBadge = item.premium ? '<div class="premium-badge">PREMIUM</div>' : '';
-    const vipRibbon = item.vip ? '<div class="vip-ribbon">VIP</div>' : '';
-    const extraClasses = item.vip ? ' relative overflow-hidden' : '';
     const popular = popularBadgeHtml(item);
 
     if (!item.glass && item.bottle) {
         return `
-            <div class="spirit-card menu-card p-6 rounded-2xl${extraClasses} reveal-card">
-                ${vipRibbon}
+            <div class="spirit-card menu-card p-6 rounded-2xl reveal-card">
                 <div class="flex items-start justify-between mb-4">
                     <div class="flex-1">
                         ${badge}
@@ -104,8 +101,7 @@ function renderGlassBottleItem(item) {
 
     if (!item.glass && !item.bottle) {
         return `
-            <div class="spirit-card menu-card p-6 rounded-2xl${extraClasses} reveal-card">
-                ${vipRibbon}
+            <div class="spirit-card menu-card p-6 rounded-2xl reveal-card">
                 <div class="flex items-start justify-between mb-4">
                     <div class="flex-1">
                         ${badge}
@@ -139,8 +135,7 @@ function renderGlassBottleItem(item) {
     priceHtml += '</div>';
 
     return `
-        <div class="spirit-card menu-card p-6 rounded-2xl${extraClasses} reveal-card">
-            ${vipRibbon}
+        <div class="spirit-card menu-card p-6 rounded-2xl reveal-card">
             <div class="flex items-start justify-between mb-4">
                 <div class="flex-1">
                     ${badge}
@@ -312,8 +307,12 @@ function renderSection(cat) {
 
 function renderCategoryButtons(categories) {
     const container = document.getElementById('category-buttons');
+    if (!container) {
+        console.error('Category buttons container not found');
+        return;
+    }
     let html = `
-        <button class="category-btn px-5 py-3 rounded-xl text-sm whitespace-nowrap active-category flex items-center" data-category="all">
+        <button id="all-category-btn" class="category-btn px-5 py-3 rounded-xl text-sm whitespace-nowrap active-category flex items-center" data-category="all">
             <i class="fas fa-star mr-2"></i> All Items
         </button>`;
 
@@ -334,6 +333,11 @@ function renderMenu() {
     const noResults = document.getElementById('no-results');
     const searchBar = document.getElementById('search-results-bar');
     const searchText = document.getElementById('search-results-text');
+
+    if (!menuContent) {
+        console.error('Menu content element not found');
+        return;
+    }
 
     // Filter categories to show
     let categoriesToRender = menuData.categories;
@@ -403,6 +407,10 @@ function initScrollReveal() {
 
 function initCategoryFiltering() {
     const container = document.getElementById('category-buttons');
+    if (!container) {
+        console.error('Category buttons container not found for event listeners');
+        return;
+    }
     container.addEventListener('click', (e) => {
         const btn = e.target.closest('.category-btn');
         if (!btn) return;
@@ -412,6 +420,16 @@ function initCategoryFiltering() {
 
         container.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active-category'));
         btn.classList.add('active-category');
+
+        // Update all button text
+        if (category === 'all') {
+            updateAllButtonText();
+        } else {
+            const allBtn = document.getElementById('all-category-btn');
+            if (allBtn) {
+                allBtn.innerHTML = `<i class="fas fa-star mr-2"></i> All Items`;
+            }
+        }
 
         // Auto-scroll the button bar to keep active button visible
         btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
@@ -441,6 +459,11 @@ function initSearch() {
     const input = document.getElementById('search-input');
     const clearBtn = document.getElementById('search-clear');
     const resultsClearBtn = document.getElementById('search-results-clear');
+
+    if (!input || !clearBtn || !resultsClearBtn) {
+        console.error('Search elements not found');
+        return;
+    }
     let debounceTimer;
 
     input.addEventListener('input', () => {
@@ -476,6 +499,11 @@ function initPriceFilter() {
     const btn = document.getElementById('price-filter-btn');
     const dropdown = document.getElementById('price-dropdown');
 
+    if (!btn || !dropdown) {
+        console.error('Price filter elements not found');
+        return;
+    }
+
     btn.addEventListener('click', (e) => {
         e.stopPropagation();
         dropdown.classList.toggle('hidden');
@@ -507,6 +535,11 @@ function initPriceFilter() {
 function initTheme() {
     const toggle = document.getElementById('theme-toggle');
     const icon = document.getElementById('theme-icon');
+
+    if (!toggle || !icon) {
+        console.error('Theme toggle elements not found');
+        return;
+    }
     const saved = localStorage.getItem('zenzo-theme') || 'dark';
 
     document.documentElement.setAttribute('data-theme', saved);
@@ -531,41 +564,123 @@ function updateThemeIcon(theme, icon) {
 
 // --- Init ---
 
+// --- Init ---
+
 function initMenu(data) {
     menuData = data;
     renderCategoryButtons(data.categories);
     renderMenu();
+    updateAllButtonText();
     initCategoryFiltering();
     initSearch();
     initPriceFilter();
     initTheme();
+
+    // Start the loader hide sequence after menu is initialized
+    setTimeout(() => {
+        hideLoader();
+    }, 500);
 }
 
-fetch('data/menu.json')
-    .then(res => res.json())
-    .then(data => initMenu(data));
+// --- Init ---
+
+// More robust initialization with multiple checks
+function initApp() {
+
+    function checkAndInit() {
+        const elements = {
+            'category-buttons': document.getElementById('category-buttons'),
+            'menu-content': document.getElementById('menu-content'),
+            'search-input': document.getElementById('search-input'),
+            'price-filter-btn': document.getElementById('price-filter-btn'),
+            'theme-toggle': document.getElementById('theme-toggle')
+        };
+
+        const missingElements = Object.entries(elements)
+            .filter(([name, element]) => !element)
+            .map(([name]) => name);
+
+        if (missingElements.length > 0) {
+            console.error('Missing DOM elements:', missingElements);
+            // Try again in 100ms
+            setTimeout(checkAndInit, 100);
+            return;
+        }
+        fetch('data/menu.json')
+            .then(res => res.json())
+            .then(data => initMenu(data))
+            .catch(error => console.error('Failed to load menu data:', error));
+    }
+
+    // Start checking immediately
+    checkAndInit();
+}
+
+initApp();
 
 // --- Loader ---
-window.addEventListener('load', function () {
+function hideLoader() {
     const loader = document.getElementById('loader');
-    const content = document.querySelector('main');
+    const content = document.getElementById('menu-content');
+
+    if (!content) {
+        console.error('Menu content element not found');
+        return;
+    }
 
     content.style.opacity = '0';
 
     setTimeout(() => {
-        loader.style.opacity = '0';
-        setTimeout(() => {
-            loader.style.display = 'none';
-            content.style.opacity = '1';
-            content.style.transition = 'opacity 0.5s ease-in';
-        }, 500);
-    }, 2500);
-});
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+                content.style.opacity = '1';
+                content.style.transition = 'opacity 0.5s ease-in';
+            }, 500);
+        }
+    }, 2000); // Reduced from 2500 to 2000 since menu is already loaded
+}
 
 // --- Scroll behavior ---
 const logo = document.querySelector('.logo-container');
 const scrollThreshold = 100;
 let logoHidden = false;
+
+function getCurrentSection() {
+    const sections = document.querySelectorAll('.category-section');
+    const scrollY = window.pageYOffset;
+    const windowHeight = window.innerHeight;
+
+    for (let section of sections) {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + scrollY;
+        const sectionHeight = rect.height;
+
+        // If the section is in view (considering some threshold)
+        if (scrollY + windowHeight / 2 >= sectionTop && scrollY + windowHeight / 2 < sectionTop + sectionHeight) {
+            return section.id;
+        }
+    }
+    return null;
+}
+
+function updateAllButtonText() {
+    if (currentCategory !== 'all') return; // Only update when showing all items
+
+    const currentSectionId = getCurrentSection();
+    const allBtn = document.getElementById('all-category-btn');
+    if (!allBtn) return;
+
+    if (currentSectionId && menuData) {
+        const category = menuData.categories.find(cat => cat.id === currentSectionId);
+        if (category) {
+            allBtn.innerHTML = `<i class="fas ${category.icon} mr-2"></i> ${escapeHtml(category.title)}`;
+        }
+    } else {
+        allBtn.innerHTML = `<i class="fas fa-star mr-2"></i> All Items`;
+    }
+}
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
@@ -576,6 +691,7 @@ window.addEventListener('scroll', () => {
         logoHidden = true;
         logo.classList.add('logo-hidden');
     }
+    updateAllButtonText();
 }, { passive: true });
 
 function scrollToTop() {
