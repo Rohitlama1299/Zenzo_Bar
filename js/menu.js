@@ -17,6 +17,46 @@ function popularBadgeHtml(item) {
     return '<span class="popular-badge"><i class="fas fa-fire"></i> Popular</span>';
 }
 
+function createPriceTag(label, value) {
+    return `
+        <div class="glass-bottle-item">
+            <div class="text-muted text-xs mb-1">${escapeHtml(label)}</div>
+            <div class="price text-lg">&euro;${escapeHtml(value)}</div>
+        </div>`;
+}
+
+function renderPriceBlock(item) {
+    // Special case: price with small/large pairs
+    if (item.price && item.price.includes(' / ')) {
+        const prices = item.price.split(' / ').map(p => p.trim());
+        if (prices.length === 2) {
+            return `
+                <div class="glass-bottle-container">
+                    ${createPriceTag('SMALL', prices[0])}
+                    ${createPriceTag('LARGE', prices[1])}
+                </div>`;
+        }
+    }
+
+    const priceParts = [];
+    if (item.price) priceParts.push({ label: 'Price', value: item.price });
+    if (item.glass) priceParts.push({ label: 'Glass', value: item.glass });
+    if (item.bottle) priceParts.push({ label: 'Bottle', value: item.bottle });
+
+    if (priceParts.length === 0) {
+        return '<div class="price text-xl">P.O.A.</div>';
+    }
+
+    if (priceParts.length === 1 && item.price && !item.glass && !item.bottle) {
+        return `<div class="price text-xl">&euro;${escapeHtml(item.price)}</div>`;
+    }
+
+    return `
+        <div class="glass-bottle-container">
+            ${priceParts.map(p => createPriceTag(p.label, p.value)).join('')}
+        </div>`;
+}
+
 function getItemPrice(item) {
     // Extract the first numeric price from an item for filtering
     const fields = [item.price, item.glass, item.bottle];
@@ -58,40 +98,24 @@ function renderSimpleItem(item) {
     const popular = popularBadgeHtml(item);
     
     // Handle prices with " / " separator (e.g., draft beer sizes)
-    if (item.price && item.price.includes(' / ')) {
-        const prices = item.price.split(' / ').map(p => p.trim());
-        if (prices.length === 2) {
-            let priceHtml = '<div class="glass-bottle-container">';
-            priceHtml += `
-                <div class="glass-bottle-item">
-                    <div class="text-muted text-xs mb-1">SMALL</div>
-                    <div class="price text-lg">&euro;${prices[0]}</div>
-                </div>
-                <div class="glass-bottle-item">
-                    <div class="text-muted text-xs mb-1">LARGE</div>
-                    <div class="price text-lg">&euro;${prices[1]}</div>
-                </div>`;
-            priceHtml += '</div>';
-            
-            return `
-                <div class="menu-card p-6 rounded-2xl reveal-card">
-                    <div class="flex flex-col">
-                        <div class="flex items-center gap-2 flex-wrap mb-3">
-                            <h3 class="font-semibold text-xl">${escapeHtml(item.name)}</h3>
-                            ${popular}
-                        </div>
-                        ${desc}
-                    </div>
-                    ${priceHtml}
-                </div>`;
-        }
-    }
-    
-    const priceParts = [];
-    if (item.price) priceParts.push(`&euro;${item.price}`);
-    if (item.bottle) priceParts.push(`Bottle: &euro;${item.bottle}`);
-    const priceDisplay = priceParts.join(' / ');
+    const hasGlassBottlePrice = item.glass || item.bottle || (item.price && item.price.includes(' / '));
+    const priceDisplay = renderPriceBlock(item);
 
+    if (hasGlassBottlePrice) {
+        return `
+            <div class="menu-card p-6 rounded-2xl reveal-card">
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap mb-3">
+                        <h3 class="font-semibold text-xl">${escapeHtml(item.name)}</h3>
+                        ${popular}
+                    </div>
+                    ${desc}
+                    <div class="mt-4">${priceDisplay}</div>
+                </div>
+            </div>`;
+    }
+
+    // Default single price layout (desktop style with side price)
     return `
         <div class="menu-card p-6 rounded-2xl reveal-card">
             <div class="flex justify-between items-start">
@@ -102,7 +126,7 @@ function renderSimpleItem(item) {
                     </div>
                     ${desc}
                 </div>
-                <span class="price text-xl whitespace-nowrap ml-4">${priceDisplay}</span>
+                <div class="ml-4">${priceDisplay}</div>
             </div>
         </div>`;
 }
@@ -115,104 +139,11 @@ function renderGlassBottleItem(item) {
     const extraClasses = item.vip ? ' relative overflow-hidden' : '';
     const popular = popularBadgeHtml(item);
 
-    // Handle items with only price field (e.g., shots)
-    if (item.price && !item.glass && !item.bottle) {
-        const priceParts = [item.price];
-        const priceDisplay = priceParts.map(p => `&euro;${p}`).join(' / ');
-        return `
-            <div class="spirit-card menu-card p-6 rounded-2xl${extraClasses} reveal-card">
-                ${vipRibbon}
-                <div class="flex items-start justify-between mb-4">
-                    <div class="flex-1">
-                        ${badge}
-                        <div class="flex items-center gap-2 flex-wrap ${badge ? 'mt-3' : ''}">
-                            <h3 class="font-semibold text-xl mb-1">${escapeHtml(item.name)}</h3>
-                            ${popular}
-                        </div>
-                        ${desc}
-                        ${premiumBadge}
-                    </div>
-                    <div class="price text-xl">${priceDisplay}</div>
-                </div>
-            </div>`;
-    }
-
-    // Handle items with price and bottle (e.g., shots with bottle option)
-    if (item.price && item.bottle && !item.glass) {
-        let priceHtml = '<div class="glass-bottle-container">';
-        priceHtml += `
-            <div class="glass-bottle-item">
-                <div class="text-muted text-xs mb-1">SHOT</div>
-                <div class="price text-lg">&euro;${item.price}</div>
-            </div>
-            <div class="glass-bottle-item">
-                <div class="text-muted text-xs mb-1">BOTTLE</div>
-                <div class="price text-lg">&euro;${item.bottle}</div>
-            </div>`;
-        priceHtml += '</div>';
-        
-        return `
-            <div class="spirit-card menu-card p-6 rounded-2xl${extraClasses} reveal-card">
-                ${vipRibbon}
-                <div class="flex items-start justify-between mb-4">
-                    <div class="flex-1">
-                        ${badge}
-                        <div class="flex items-center gap-2 flex-wrap ${badge ? 'mt-3' : ''}">
-                            <h3 class="font-semibold text-xl mb-1">${escapeHtml(item.name)}</h3>
-                            ${popular}
-                        </div>
-                        ${desc}
-                        ${premiumBadge}
-                    </div>
-                </div>
-                ${priceHtml}
-            </div>`;
-    }
-
-    if (!item.glass && item.bottle) {
-        return `
-            <div class="spirit-card menu-card p-6 rounded-2xl${extraClasses} reveal-card">
-                ${vipRibbon}
-            </div>`;
-    }
-
-    if (!item.glass && !item.bottle) {
-        return `
-            <div class="spirit-card menu-card p-6 rounded-2xl reveal-card">
-                <div class="flex items-start justify-between mb-4">
-                    <div class="flex-1">
-                        ${badge}
-                        <div class="flex items-center gap-2 flex-wrap ${badge ? 'mt-3' : ''}">
-                            <h3 class="font-semibold text-xl mb-1">${escapeHtml(item.name)}</h3>
-                            ${popular}
-                        </div>
-                        ${desc}
-                        ${premiumBadge}
-                    </div>
-                    <div class="price text-xl">P.O.A.</div>
-                </div>
-            </div>`;
-    }
-
-    let priceHtml = '<div class="glass-bottle-container">';
-    if (item.glass) {
-        priceHtml += `
-            <div class="glass-bottle-item">
-                <div class="text-muted text-xs mb-1">GLASS</div>
-                <div class="price text-lg">&euro;${item.glass}</div>
-            </div>`;
-    }
-    if (item.bottle) {
-        priceHtml += `
-            <div class="glass-bottle-item">
-                <div class="text-muted text-xs mb-1">BOTTLE</div>
-                <div class="price text-lg">&euro;${item.bottle}</div>
-            </div>`;
-    }
-    priceHtml += '</div>';
+    const priceHtml = renderPriceBlock(item);
 
     return `
-        <div class="spirit-card menu-card p-6 rounded-2xl reveal-card">
+        <div class="spirit-card menu-card p-6 rounded-2xl${extraClasses} reveal-card">
+            ${vipRibbon}
             <div class="flex items-start justify-between mb-4">
                 <div class="flex-1">
                     ${badge}

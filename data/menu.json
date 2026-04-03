@@ -270,17 +270,6 @@
       ]
     },
     {
-      "id": "tequila",
-      "title": "Tequila",
-      "icon": "fa-cocktail",
-      "type": "simple",
-      "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
-      "items": [
-        { "name": "Pistoleros", "glass": "12.00", "bottle": "110.00" },
-        { "name": "Patrón Silver", "glass": "16.00", "bottle": "160.00", "premium": true }
-      ]
-    },
-    {
       "id": "shots",
       "title": "Shots",
       "icon": "fa-glass-cheers",
@@ -300,6 +289,17 @@
         { "name": "Boswandeling", "price": "5.00" },
         { "name": "Flugel", "price": "4.00" },
         { "name": "Flugel Doos (40 st)", "bottle": "120.00" }
+      ]
+    },
+    {
+      "id": "tequila",
+      "title": "Tequila",
+      "icon": "fa-cocktail",
+      "type": "simple",
+      "note": "Incl. soft drinks energy drinks + € 0.50 by glass / € 5.00 by bottle",
+      "items": [
+        { "name": "Pistoleros", "glass": "12.00", "bottle": "110.00" },
+        { "name": "Patrón Silver", "glass": "16.00", "bottle": "160.00", "premium": true }
       ]
     },
     {

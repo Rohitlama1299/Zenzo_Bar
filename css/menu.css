@@ -563,7 +563,7 @@ body {
 }
 
 .glass-bottle-item {
-    flex: 1;
+    flex: 0 0 120px;
     text-align: center;
     padding: 8px 12px;
     background: var(--bg-input);
