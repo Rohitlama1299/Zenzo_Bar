@@ -330,9 +330,9 @@ translations.fr["nav.lostFound"] = "Objets Trouvés";
 translations.fr["contact.form.subjectLostFound"] = "Objets Trouvés";
 
 
-translations.en["contact.infoHoursDetails"] = "Wednesday - Sunday : 6 PM - 5 AM";
-translations.nl["contact.infoHoursDetails"] = "Woensdag - Zondag : 18u - 5u";
-translations.fr["contact.infoHoursDetails"] = "Mercredi - Dimanche : 18h - 5h";
+translations.en["contact.infoHoursDetails"] = "Monday - Sunday : 2 PM - 5 AM";
+translations.nl["contact.infoHoursDetails"] = "Mandag - Zondag : 2u - 5u";
+translations.fr["contact.infoHoursDetails"] = "Lundi - Dimanche : 2h - 5h";
 
 
 translations.en["contact.infoHoursDetails2"] = "Monday - Tuesday: Closed";
